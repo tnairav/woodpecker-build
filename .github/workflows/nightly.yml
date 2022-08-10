@@ -26,5 +26,19 @@ jobs:
           go-version: '1.18.x'
       - name: Run a multi-line script
         run: |
-          ls
-          echo 'DONE'
+          echo '>>> BUILDING WEB'
+          pushd web
+          yarn install --frozen-lockfile
+          yarn build
+          popd
+
+          echo '>>> BUILDING ALL'
+          go mod vendor
+          make release-server
+          make release-agent
+          make release-cli
+
+          echo '>>> DONE'
+          find dist
+
+          
