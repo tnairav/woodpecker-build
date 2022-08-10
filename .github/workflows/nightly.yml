@@ -15,9 +15,9 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
-        with:
-          name: woodpecker-ci/woodpecker
-          ref: refs/heads/master
+        # with:
+        #   name: woodpecker-ci/woodpecker
+        #   ref: refs/heads/master
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -26,7 +26,8 @@ jobs:
           go-version: '1.18.x'
       - run: |
           pwd
-          ls
+          git clone https://github.com/woodpecker-ci/woodpecker
+          cd woodpecker
 
           echo '>>> BUILDING WEB'
           pushd web
@@ -45,4 +46,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: artifact
-          path: dist
+          path: woodpecker/dist
