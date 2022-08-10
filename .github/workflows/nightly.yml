@@ -1,0 +1,27 @@
+name: nightly
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          name: woodpecker-ci/woodpecker
+          ref: refs/heads/master
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.18.x'
+      - name: Run a multi-line script
+        run: |
+          ls
+          echo 'DONE'
